@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html ng-app="xNote">
+<head>
+  <meta charset="utf-8">
+  <title>xNote 0.1.0</title>
+  <link rel="stylesheet" href="../css/main.css">
+</head>
+<body ng-controller="xCtrl">
+
+  <div class="container main">
+    <div class="left-pane">
+      <div id="notes-list">
+        <!-- <header>
+          <span>notes</span>
+        </header> -->
+        <ul>
+          <li ng-repeat="f in filenames" ng-click="loadNote(f)">
+            <div class="title-txt">&nbsp;&nbsp;&nbsp;{{ f }}</div>
+            <div class="remove-btn" ng-click="deleteNote(f)"></div>
+          </li>
+        </ul>
+      </div>
+      <div id="collapse-btn">
+        <span></span>
+      </div>
+    </div>
+
+    <div class="editor">
+      <header>
+        <form ng-submit="saveTitle()">
+          <input type="text" name="note-title" id="note-title" placeholder="untitled" value="" ng-model="note.title">
+        </form>
+        <div class="options-btn">&#8942;</div>
+        <div class="options">
+          <ul>
+            <li id="settings-btn">Settings</li>
+            <li onclick="alert('xNote-0.1.0 by hirakJS')">About</li>
+          </ul>
+        </div>
+      </header>
+      <div class="note-content">
+        <!-- <div id="edit-area" contenteditable="true">
+          <div><br></div>
+        </div> -->
+        <textarea id="edit-area" placeholder="Your note contents goes here..." ng-model="note.content" ng-style="fontStyle"></textarea>
+      </div>
+    </div>
+    <div id="add-btn" ng-click="createNew()">+</div>
+
+    <div class="settings-page">
+      <header>
+        <button>&#x2715;</button>
+      </header>
+      <form>
+        <label for="font-family">Font name: </label><br>
+        <select name="font-family" style="width: 100%; font-size: 14px;" ng-model="font.family" ng-change="applySettings()">
+          <option value="cursive">Cursive</option>
+          <option value="fantasy">Fantasy</option>
+          <option value="monospace">Monospace</option>
+          <option value="serif">Serif</option>
+          <option value="sans-serif">Sans-serif</option>
+          <option value="Roboto-Regular">Roboto</option>
+        </select>
+        <br><br>
+        <label for="font-size">Font size: (in pixel)</label><br>
+        <input type="number" name="font-size" id="font-size" min="5" style="width: 100%; font-size: 14px;" ng-model="font.size" ng-change="applySettings()">
+      </form>
+    </div>
+  </div>
+
+  <!-- About -->
+  <!-- <div class="container about">
+      <h2>xNote</h2>
+      <h4>Version: 0.1.0</h4>
+      <p>Author: hirakJS</p>
+  </div> -->
+
+
+  <script src="../lib/angular.min.js"></script>
+  <script src="../js/logic.js"></script>
+  <script>
+    window.onload = function() {
+      document.querySelector("#edit-area").focus();
+    };
+
+    document.querySelector(".note-content").onclick = function() {
+      document.querySelector("#edit-area").focus();
+    };
+
+    document.querySelector("#note-title").onclick = function(e) {
+      this.focus();
+    }
+
+    document.querySelector("#collapse-btn").addEventListener('click', function() {
+      var leftPane = document.querySelector(".left-pane");
+      var editor = document.querySelector(".editor");
+      if (leftPane.getAttribute("class").split(" ").includes("hide")) {
+        leftPane.setAttribute("class", "left-pane");
+        editor.setAttribute("class", "editor");
+      } else {
+        leftPane.setAttribute("class", "left-pane hide");
+        editor.setAttribute("class", "editor expand");
+      }
+    }, false);
+
+    document.querySelector(".options-btn").addEventListener('click', function() {
+      var options = document.querySelector(".options");
+      if (options.getAttribute("class").split(" ").includes("active")) {
+        options.setAttribute("class", "options");
+      } else {
+        options.setAttribute("class", "options active");
+      }
+    }, false);
+
+    document.querySelector("#settings-btn").addEventListener('click', function() {
+      var settingsPage = document.querySelector(".settings-page");
+
+      document.querySelector(".options").setAttribute("class", "options");
+
+      if (settingsPage.getAttribute("class").split(" ").includes("active")) {
+        settingsPage.setAttribute("class", "settings-page");
+      } else {
+        settingsPage.setAttribute("class", "settings-page active");
+      }
+    }, false);
+
+    document.querySelector(".settings-page").querySelector("header").querySelector("button").addEventListener('click', function() {
+      document.querySelector(".settings-page").setAttribute("class", "settings-page");
+    }, false);
+  </script>
+</body>
+</html>

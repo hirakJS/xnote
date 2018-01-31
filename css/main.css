@@ -1,0 +1,315 @@
+@font-face {
+  font-family: Roboto-Regular;
+  src: url(../fonts/Roboto-Regular.ttf);
+}
+
+@font-face {
+  font-family: Roboto-Light;
+  src: url(../fonts/Roboto-Light.ttf);
+}
+
+* {
+  font-family: Roboto-Regular;
+}
+
+body {
+  margin: 0;
+  font-size: 12px;
+  font-weight: normal;
+}
+
+.container {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.col-2 {
+  width: 16.67%;
+  float: left;
+}
+
+.col-10 {
+  width: 83.33%;
+  float: left;
+}
+
+.left-pane {
+  width: 200px;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  /*background: #2196F3;*/
+  background: #3f51b5;
+  transition: left 0.2s cubic-bezier(0, 0, 0.2, 1);
+}
+
+.left-pane.hide {
+  left: -189px;
+}
+
+.left-pane #notes-list {
+  width: 189px;
+  height: 100%;
+  overflow-y: auto;
+}
+
+.left-pane ul {
+  list-style: none;
+  padding: 0;
+  /*margin: 0;*/
+}
+
+.left-pane ul li {
+  height: 40px;
+  color: #fff;
+  font-size: 14px;
+  cursor: default;
+  /*padding: 10px;*/
+  transition: background-color 0.1s cubic-bezier(0, 0, 0.2, 1);
+}
+
+.left-pane ul li .title-txt {
+  float: left;
+  line-height: 40px;
+  width: 80%;
+}
+
+.left-pane ul li:hover {
+  /*background-color: #E91E63;*/
+  /*background-color: #455a64;*/
+  background-color: #ff4081;
+}
+
+.left-pane ul li .remove-btn {
+  float: right;
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+  width: 20%;
+}
+
+.left-pane ul li:hover .remove-btn::after {
+  content: '\2715';
+}
+
+.left-pane ul li .remove-btn:hover {
+  background-color: #455a64;
+}
+
+.left-pane #collapse-btn {
+  width: 11px;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  display: table;
+  /*background-color: #03A9F4;*/
+  background-color: #303f9f;
+  transition: background-color 0.2s cubic-bezier(0, 0, 0.2, 1);
+}
+
+.left-pane #collapse-btn span {
+  color: #fff;
+  vertical-align: middle;
+  display: table-cell;
+  cursor: default;
+}
+
+.left-pane #collapse-btn span::before {
+  content: '\276E';
+}
+
+.left-pane.hide #collapse-btn span::before {
+  content: '\276F';
+}
+
+.left-pane #collapse-btn:hover {
+  /*background-color: #E91E63;*/
+  background-color: #ff4081;
+}
+
+.editor {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 200px;
+  /*background: darkgray;*/
+  transition: left 0.2s cubic-bezier(0, 0, 0.2, 1);
+}
+
+.editor.expand {
+  left: 11px;
+}
+
+header {
+  height: 49px;
+}
+
+.editor header {
+  border-bottom: 1px solid #efefef;
+}
+
+.editor header > form {
+  width: 30%;
+  /*margin: 0 auto;*/
+  margin-left: 20px;
+}
+
+input#note-title {
+  width: 100%;
+  height: 49px;
+  /*text-align: center;*/
+  font-family: Roboto-Light;
+  font-size: 20px;
+  background: none;
+  /*color: #e91e63;*/
+  color: #f50057;
+  border: 0;
+  padding: 0;
+  outline: none;
+  /*opacity: 1;*/
+}
+
+/*input#note-title:focus {
+  opacity: 0.5;
+}*/
+
+.editor header .options-btn {
+  /*display: none;*/
+  width: 26px;
+  height: 26px;
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  color: #455a64;
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+  cursor: default;
+}
+
+.editor header .options {
+  display: none;
+  width: 150px;
+  position: absolute;
+  top: 36px;
+  right: 12px;
+  z-index: 1;
+  background-color: #fff;
+  border-radius: 3px;
+  box-shadow: 0px 2px 8px 0 rgba(0, 0, 0, 0.2);
+  transition: all 0.25s ease-out;
+  transform: scale(0);
+  transform-origin: 100% 0;
+}
+
+.editor header .options.active {
+  display: block;
+  transform: scale(1);
+  transition: all 0.25s cubic-bezier(0.5, 1.8, 0.9, 0.8);
+}
+
+.editor header .options ul {
+  list-style: none;
+  padding: 0;
+  margin-top: 2px;
+  margin-bottom: 2px;
+}
+
+.editor header .options ul li {
+  cursor: default;
+  padding: 10px;
+  color: #263238;
+  background-color: #fff;
+  transition: background-color,color 0.1s cubic-bezier(0, 0, 0.2, 1);
+}
+
+.editor header .options ul li:hover {
+  color: #fff;
+  background-color: #90a4ae;
+}
+
+.editor .note-content {
+  position: absolute;
+  top: 50px;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  /*cursor: text;*/
+}
+
+.editor .note-content #edit-area {
+  outline: none;
+  border: 0;
+  padding: 10px;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  display: block;
+  resize: none;
+  color: #263238;
+}
+
+#add-btn {
+  color: #fff;
+  /*background: #E91E63;*/
+  background-color: #f50057;
+  border-radius: 26px;
+  padding: 11px 18px;
+  font-size: 24px;
+  position: absolute;
+  right: 20px;
+  bottom: 20px;
+  cursor: default;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+  transition: box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  transition-delay: 0.2s;
+}
+
+#add-btn:hover {
+  box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.2);
+}
+
+.settings-page {
+  font-family: Roboto-Regular;
+  font-size: 14px;
+  position: absolute;
+  top: 0px;
+  right: -215px;
+  bottom: 0px;
+  background: #fff;
+  width: 180px;
+  border-left: 1px solid #efefef;
+  padding: 16px;
+  box-shadow: 0px 5px 20px 5px #efefef;
+  transition: right 0.2s cubic-bezier(0, 0, 0.2, 1);
+  display: none;
+}
+
+.settings-page.active {
+  display: block;
+  right: 0px;
+}
+
+.settings-page header {
+  text-align: right;
+}
+
+.settings-page header button {
+  color: #263238;
+  font-size: 20px;
+  background: none;
+  border: 0;
+  cursor: default;
+  outline: none;
+}
+
+.settings-page header button:hover {
+  color: #f50057;
+}
